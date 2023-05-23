@@ -1,0 +1,423 @@
+﻿@using Web.Entities;
+@{
+    Layout = null;
+    var sesionactual = (ResponseTokenModel)Session["sesion"];    
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv=expires content="-1">
+    <meta http-equiv=Pragma content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>Web Admin</title>
+    <style>
+        /*Loader class - init*/
+        .loader {
+            margin: 200px auto;
+            /*background-color: rgba(255, 255, 255, 1);*/
+        }
+
+        .title-loader-loading {
+            /*font-family: 'Actor', sans-serif;*/
+            color: #353b48;
+            font-size: 16px;
+            letter-spacing: 1px;
+            font-weight: 200;
+            text-align: center
+        }
+
+        .loader span {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+            position: absolute;
+            left: 50%;
+            margin-left: -10px;
+            -webkit-animation: 3s infinite linear;
+            -moz-animation: 3s infinite linear;
+            -o-animation: 3s infinite linear
+        }
+
+            .loader span:nth-child(2) {
+                background: blue;
+                -webkit-animation: kiri 1.2s infinite linear;
+                -moz-animation: kiri 1.2s infinite linear;
+                -o-animation: kiri 1.2s infinite linear
+            }
+
+            .loader span:nth-child(3) {
+                background: blue;
+                z-index: 100
+            }
+
+            .loader span:nth-child(4) {
+                background: blue;
+                -webkit-animation: kanan 1.2s infinite linear;
+                -moz-animation: kanan 1.2s infinite linear;
+                -o-animation: kanan 1.2s infinite linear
+            }
+
+
+        @@-webkit-keyframes kanan {
+            0% {
+                -webkit-transform: translateX(20px)
+            }
+
+            50% {
+                -webkit-transform: translateX(-20px)
+            }
+
+            100% {
+                -webkit-transform: translateX(20px);
+                z-index: 200
+            }
+        }
+
+        @@-moz-keyframes kanan {
+            0% {
+                -moz-transform: translateX(20px)
+            }
+
+            50% {
+                -moz-transform: translateX(-20px)
+            }
+
+            100% {
+                -moz-transform: translateX(20px);
+                z-index: 200
+            }
+        }
+
+        @@-o-keyframes kanan {
+            0% {
+                -o-transform: translateX(20px)
+            }
+
+            50% {
+                -o-transform: translateX(-20px)
+            }
+
+            100% {
+                -o-transform: translateX(20px);
+                z-index: 200
+            }
+        }
+
+        @@-webkit-keyframes kiri {
+            0% {
+                -webkit-transform: translateX(-20px);
+                z-index: 200
+            }
+
+            50% {
+                -webkit-transform: translateX(20px)
+            }
+
+            100% {
+                -webkit-transform: translateX(-20px)
+            }
+        }
+
+        @@-moz-keyframes kiri {
+            0% {
+                -moz-transform: translateX(-20px);
+                z-index: 200
+            }
+
+            50% {
+                -moz-transform: translateX(20px)
+            }
+
+            100% {
+                -moz-transform: translateX(-20px)
+            }
+        }
+
+        @@-o-keyframes kiri {
+            0% {
+                -o-transform: translateX(-20px);
+                z-index: 200
+            }
+
+            50% {
+                -o-transform: translateX(20px)
+            }
+
+            100% {
+                -o-transform: translateX(-20px)
+            }
+        }
+        /*Loader class - end*/
+
+        .sk-three-bounce {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            /*background-color: white;*/
+        }
+
+            .sk-three-bounce .sk-child {
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 20px;
+                height: 20px;
+                background-color: #353b48;
+                border-radius: 100%;
+                display: inline-block;
+                -webkit-animation: sk-three-bounce 1.4s ease-in-out 0s infinite both;
+                animation: sk-three-bounce 1.4s ease-in-out 0s infinite both;
+            }
+
+            .sk-three-bounce .sk-bounce1 {
+                -webkit-animation-delay: -0.32s;
+                animation-delay: -0.32s;
+            }
+
+            .sk-three-bounce .sk-bounce2 {
+                -webkit-animation-delay: -0.16s;
+                animation-delay: -0.16s;
+            }
+
+        @@-webkit-keyframes sk-three-bounce {
+            0%,
+            80%,
+            100% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+
+            40% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @@keyframes sk-three-bounce {
+            0%,
+            80%,
+            100% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+
+            40% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+    </style>
+    <style>
+        @@font-face {
+          font-family: "FontAwesome";
+          src: url(@Url.Content("~/Content/bootstrap/fonts/fontawesome-webfont.eot?v=4.7.0"));
+          src: url(@Url.Content("~/Content/bootstrap/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0")) format("embedded-opentype"), url(@Url.Content("~/Content/bootstrap/fonts/fontawesome-webfont.woff2?v=4.7.0")) format("woff2"), url(@Url.Content("~/Content/bootstrap/fonts/fontawesome-webfont.woff?v=4.7.0")) format("woff"), url(@Url.Content("~/Content/bootstrap/fonts/fontawesome-webfont.ttf?v=4.7.0")) format("truetype"), url(@Url.Content("~/Content/bootstrap/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular")) format("svg");
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        @@font-face {
+          font-family: "Material Design Icons";
+          src: url(@Url.Content("~/Content/bootstrap/fonts/materialdesignicons-webfont.eot?v=2.8.94"));
+          src: url(@Url.Content("~/Content/bootstrap/fonts/materialdesignicons-webfont.eot?#iefix&v=2.8.94")) format("embedded-opentype"), url(@Url.Content("~/Content/bootstrap/fonts/materialdesignicons-webfont.woff2?v=2.8.94")) format("woff2"), url(@Url.Content("~/Content/bootstrap/fonts/materialdesignicons-webfont.woff?v=2.8.94")) format("woff"), url(@Url.Content("~/Content/bootstrap/fonts/materialdesignicons-webfont.ttf?v=2.8.94")) format("truetype"), url(@Url.Content("~/Content/bootstrap/fonts/materialdesignicons-webfont.svg?v=2.8.94#materialdesigniconsregular")) format("svg");
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        @@font-face {
+          font-family: "themify";
+          src: url(@Url.Content("~/Content/bootstrap/fonts/themify.eot?-fvbane"));
+          src: url(@Url.Content("~/Content/bootstrap/fonts/themify.eot?#iefix-fvbane")) format("embedded-opentype"), url(@Url.Content("~/Content/bootstrap/fonts/themify.woff?-fvbane")) format("woff"), url(@Url.Content("~/Content/bootstrap/fonts/themify.ttf?-fvbane")) format("truetype"), url(@Url.Content("~/Content/bootstrap/fonts/themify.svg?-fvbane#themify")) format("svg");
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        @@font-face {
+          font-family: "dripicons-v2";
+          src: url(@Url.Content("~/Content/bootstrap/fonts/dripicons-v2.eot"));
+          src: url(@Url.Content("~/Content/bootstrap/fonts/dripicons-v2.eot?#iefix")) format("embedded-opentype"), url(@Url.Content("~/Content/bootstrap/fonts/dripicons-v2.woff")) format("woff"), url(@Url.Content("~/Content/bootstrap/fonts/dripicons-v2.ttf")) format("truetype"), url(@Url.Content("~/Content/bootstrap/fonts/dripicons-v2.svg#dripicons-v2")) format("svg");
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        @@font-face {
+          font-family: "simple-line-icons";
+          src: url(@Url.Content("~/Content/bootstrap/fonts/Simple-Line-Icons.eot?v=2.4.0"));
+          src: url(@Url.Content("~/Content/bootstrap/fonts/Simple-Line-Icons.eot?v=2.4.0#iefix")) format("embedded-opentype"), url(@Url.Content("~/Content/bootstrap/fonts/Simple-Line-Icons.woff2?v=2.4.0")) format("woff2"), url(@Url.Content("~/Content/bootstrap/fonts/Simple-Line-Icons.ttf?v=2.4.0")) format("truetype"), url(@Url.Content("~/Content/bootstrap/fonts/Simple-Line-Icons.woff?v=2.4.0")) format("woff"), url(@Url.Content("~/Content/bootstrap/fonts/Simple-Line-Icons.svg?v=2.4.0#simple-line-icons")) format("svg");
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        @@charset "UTF-8";
+        @@font-face {
+          font-family: "typicons";
+          font-weight: normal;
+          font-style: normal;
+          src: url(@Url.Content("~/Content/bootstrap/fonts/typicons.eot"));
+          src: url(@Url.Content("~/Content/bootstrap/fonts/typicons.eot?#iefix")) format("embedded-opentype"), url(@Url.Content("~/Content/bootstrap/fonts/typicons.woff")) format("woff"), url(@Url.Content("~/Content/bootstrap/fonts/typicons.ttf")) format("truetype"), url(@Url.Content("~/Content/bootstrap/fonts/typicons.svg#typicons")) format("svg");
+        }
+
+        @@font-face {
+            font-family: "Ionicons";
+            src: url(@Url.Content("~/Content/bootstrap/fonts/ionicons.eot?v=4.4.4"));
+            src: url(@Url.Content("~/Content/bootstrap/fonts/ionicons.eot?v=4.4.4#iefix")) format("embedded-opentype"), url(@Url.Content("~/Content/bootstrap/fonts/ionicons.woff2?v=4.4.4")) format("woff2"), url(@Url.Content("~/Content/bootstrap/fonts/ionicons.woff?v=4.4.4")) format("woff"), url(@Url.Content("~/Content/bootstrap/fonts/ionicons.ttf?v=4.4.4")) format("truetype"), url(@Url.Content("~/Content/bootstrap/fonts/ionicons.svg?v=4.4.4#Ionicons")) format("svg");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /*@@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700");*/
+    </style>
+    @Styles.Render("~/Content/fuente/poppins")
+    @RenderSection("estilo_propio_pagina", required: false)
+    @Styles.Render("~/Content/estilo/general/Master")
+
+</head>
+
+<body class="xp-vertical">
+    <div class="loader" style="display:none">
+        <div class="text-center mt-5 mb-5 font-40">
+            @*<img src="@Url.Content("~/images/logodeca/logosvg.svg")" alt="Logo" width="300" height="80">*@
+            Web
+        </div>
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+        <h1 class="title-loader-loading">Cargando...</h1>
+    </div>
+    <div id="xp-container">
+
+        <div class="xp-leftbar">
+
+            <div class="xp-sidebar">
+                <div class="xp-logobar text-center">
+                    <a href="javascript:void(0);" class="xp-logo">Web</a>
+                </div>
+                <div class="xp-navigationbar">
+                    <ul class="xp-vertical-menu">
+
+                        <li class="xp-vertical-header">Módulos</li>
+
+                        
+                            <li>
+                                <a href="javaScript:void(0);">
+                                    <i class="fa-edit"></i>
+                                    <span>Modulo 1</span>
+                                    <i class="mdi mdi-chevron-right pull-right"></i>
+                                </a>
+                                <ul class="xp-vertical-submenu">
+                                    <li>
+                                        <a href="@Url.Content($"~/control1/action1")">
+                                            SubModul 1
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Content($"~/control1/action2")">
+                                            SubModul 2
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        
+
+
+                    </ul>
+                    <!--<main class="page-content">
+                    <div class="container-fluid">
+
+                    </div>-->
+                    <!-- .content -->
+                    <!--</main>-->
+                </div> <!-- /#wrapper -->
+            </div>
+        </div>
+        <div class="xp-rightbar">
+            <!-- Start XP Topbar -->
+            <div class="xp-topbar">
+                <!-- Start XP Row -->
+                <div class="row">
+
+                    <!-- Start XP Col -->
+                    <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+                        <div class="xp-menubar">
+                            <a class="xp-menu-hamburger" href="javascript:void();">
+                                <i class="mdi mdi-sort-variant font-24 text-white"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End XP Col -->
+                    <!-- Start XP Col -->
+                    <div class="col-md-5 col-lg-3 order-3 order-md-2">
+
+                    </div>
+                    <!-- End XP Col -->
+                    <!-- Start XP Col -->
+                    <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
+                        <div class="xp-profilebar text-right">
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item mr-0">
+                                    <div class="dropdown xp-userprofile">
+                                        <a class="dropdown-toggle user-profile-img text-white" href="#" role="button" id="xp-userprofile"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-user font-20"></i><span class="xp-user-live"></span>
+                                        </a>
+
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="xp-userprofile">
+                                            @*<a class="dropdown-item" href="#">Username</a>
+                                                <a class="dropdown-item" href="#"><i class="mdi mdi-settings mr-2"></i> Setting</a>*@
+                                            <a class="dropdown-item" href="@Url.Action("CerrarSesion", "Account")"><i class="mdi mdi-logout mr-2"></i> Cerrar Sesión</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End XP Col -->
+
+                </div>
+                <!-- End XP Row -->
+            </div>
+            <!-- End XP Topbar -->
+            <!-- Start XP Breadcrumbbar -->
+            <div class="xp-breadcrumbbar text-center">
+                <h4 class="page-title" id="nombrePagina"></h4>
+                <ol class="breadcrumb" id="nombrePagina_ubicacion">
+                </ol>
+            </div>
+            <!-- End XP Breadcrumbbar -->
+            <!-- Start XP Contentbar -->
+            <div class="xp-contentbar">
+                @RenderBody()
+            </div>
+            <!-- End XP Contentbar -->
+            <!-- Start XP Footerbar -->
+            <div class="xp-footerbar">
+                <footer class="footer">
+                    <p class="mb-0">© Web - All Rights Reserved.</p>
+                </footer>
+            </div>
+            <!-- End XP Footerbar -->
+        </div>
+    </div>
+
+
+    <script>
+         var rutaPrincipal = "@Url.Content("~")";
+    </script>
+
+    @Scripts.Render("~/bundles/scripts/general/Master")
+    @RenderSection("scripts_pagina_propia_1", required: false)
+    @Scripts.Render("~/bundles/scripts/general/Master/main")
+    @RenderSection("scripts_pagina_propia_2", required: false)
+
+</body>
+</html>
+

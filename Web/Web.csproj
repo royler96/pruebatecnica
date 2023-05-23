@@ -45,10 +45,44 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Brotli.Bundle, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Brotli.Bundle.1.0.0\lib\net46\Brotli.Bundle.dll</HintPath>
+    </Reference>
+    <Reference Include="Brotli.NET, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Brotli.NET.1.0.3\lib\net40\Brotli.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="GzipBundle, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GzipBundle.1.0.0\lib\GzipBundle.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -67,10 +101,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.1\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http">
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest">
     </Reference>
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -120,38 +150,106 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Attribute\JsonHttpStatusResult.cs" />
+    <Compile Include="ClientWebApi\AccountClient.cs" />
+    <Compile Include="ClientWebApi\PeticionesHttpClient\IWebApiClient.cs" />
+    <Compile Include="ClientWebApi\PeticionesHttpClient\WebApiClient.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Entities\AccountModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-grid.rtl.css" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
-    <Content Include="Content\bootstrap-reboot.rtl.css" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
-    <Content Include="Content\bootstrap-utilities.css" />
-    <Content Include="Content\bootstrap-utilities.min.css" />
-    <Content Include="Content\bootstrap-utilities.rtl.css" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Content\alerts\jquery-confirm.css" />
+    <Content Include="Content\alerts\jquery-confirm.min.css" />
+    <Content Include="Content\alerts\sweetalert2.css" />
+    <Content Include="Content\alerts\sweetalert2.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrap.rtl.css" />
-    <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\css\icons.css" />
+    <Content Include="Content\bootstrap\css\icons.min.css" />
+    <Content Include="Content\bootstrap\css\style.css" />
+    <Content Include="Content\bootstrap\css\style.min.css" />
+    <Content Include="Content\bootstrap\fonts\dripicons-v2.svg" />
+    <Content Include="Content\bootstrap\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\bootstrap\fonts\ionicons.svg" />
+    <Content Include="Content\bootstrap\fonts\materialdesignicons-webfont.svg" />
+    <Content Include="Content\bootstrap\fonts\Simple-Line-Icons.svg" />
+    <Content Include="Content\bootstrap\fonts\themify.svg" />
+    <Content Include="Content\bootstrap\fonts\typicons.svg" />
+    <Content Include="Content\bootstrap\js\bootstrap-lightbox.min.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\bootstrap\js\jquery.min.js" />
+    <Content Include="Content\bootstrap\js\main.js" />
+    <Content Include="Content\bootstrap\js\main.min.js" />
+    <Content Include="Content\bootstrap\js\popper.min.js" />
+    <Content Include="Content\datatables\buttons.bootstrap4.min.css" />
+    <Content Include="Content\datatables\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\datatables\responsive.bootstrap4.min.css" />
+    <Content Include="Content\plugins\bootstrap-tagsinput\bootstrap-tagsinput-typeahead.css" />
+    <Content Include="Content\plugins\bootstrap-tagsinput\bootstrap-tagsinput.css" />
+    <Content Include="Content\plugins\datepicker\air\datepicker.css" />
+    <Content Include="Content\plugins\datepicker\air\datepicker.min.css" />
+    <Content Include="Content\plugins\datepicker\datepicker.css" />
+    <Content Include="Content\plugins\datepicker\datepicker.min.css" />
+    <Content Include="Content\plugins\dropzone\dist\basic.css" />
+    <Content Include="Content\plugins\dropzone\dist\dropzone.css" />
+    <Content Include="Content\plugins\dropzone\dist\dropzone.min.css" />
+    <Content Include="Content\plugins\dropzone\dist\min\basic.min.css" />
+    <Content Include="Content\plugins\dropzone\dist\min\dropzone.min.css" />
+    <Content Include="Content\plugins\select2\img\droparrows.png" />
+    <Content Include="Content\plugins\select2\img\select2-spinner.gif" />
+    <Content Include="Content\plugins\select2\img\select2.png" />
+    <Content Include="Content\plugins\select2\img\select2x2.png" />
+    <Content Include="Content\plugins\select2\select2.css" />
+    <Content Include="Content\plugins\select2\select2.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap\css\icons.css.map" />
+    <Content Include="Content\bootstrap\css\style.css.map" />
+    <Content Include="Content\bootstrap\fonts\dripicons-v2.eot" />
+    <Content Include="Content\bootstrap\fonts\dripicons-v2.ttf" />
+    <Content Include="Content\bootstrap\fonts\dripicons-v2.woff" />
+    <Content Include="Content\bootstrap\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\bootstrap\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\bootstrap\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\bootstrap\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\bootstrap\fonts\FontAwesome.otf" />
+    <Content Include="Content\bootstrap\fonts\ionicons.eot" />
+    <Content Include="Content\bootstrap\fonts\ionicons.ttf" />
+    <Content Include="Content\bootstrap\fonts\ionicons.woff" />
+    <Content Include="Content\bootstrap\fonts\ionicons.woff2" />
+    <Content Include="Content\bootstrap\fonts\materialdesignicons-webfont.eot" />
+    <Content Include="Content\bootstrap\fonts\materialdesignicons-webfont.ttf" />
+    <Content Include="Content\bootstrap\fonts\materialdesignicons-webfont.woff" />
+    <Content Include="Content\bootstrap\fonts\materialdesignicons-webfont.woff2" />
+    <Content Include="Content\bootstrap\fonts\Simple-Line-Icons.eot" />
+    <Content Include="Content\bootstrap\fonts\Simple-Line-Icons.ttf" />
+    <Content Include="Content\bootstrap\fonts\Simple-Line-Icons.woff" />
+    <Content Include="Content\bootstrap\fonts\Simple-Line-Icons.woff2" />
+    <Content Include="Content\bootstrap\fonts\themify.eot" />
+    <Content Include="Content\bootstrap\fonts\themify.ttf" />
+    <Content Include="Content\bootstrap\fonts\themify.woff" />
+    <Content Include="Content\bootstrap\fonts\typicons.eot" />
+    <Content Include="Content\bootstrap\fonts\typicons.ttf" />
+    <Content Include="Content\bootstrap\fonts\typicons.woff" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -177,28 +275,15 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\MasterGeneral.cshtml" />
+    <Content Include="Views\Shared\MasterLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.rtl.min.css.map" />
-    <Content Include="Content\bootstrap.rtl.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
-    <Content Include="Content\bootstrap-utilities.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="packages.config" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
@@ -242,7 +327,9 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Brotli.NET.1.0.3\build\Brotli.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Brotli.NET.1.0.3\build\Brotli.NET.targets'))" />
   </Target>
+  <Import Project="..\packages\Brotli.NET.1.0.3\build\Brotli.NET.targets" Condition="Exists('..\packages\Brotli.NET.1.0.3\build\Brotli.NET.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

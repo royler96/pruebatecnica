@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>Admin</title>
+
+    @Styles.Render("~/Content/css")
+    @RenderSection("stylespage", required: false)
+
+</head>
+<body class="xp-vertical">
+
+    <div class="xp-authenticate-bg"></div>
+    <!-- Start XP Container -->
+    <div id="xp-container" class="xp-container">
+
+        <!-- Start Container -->
+        <div class="container">
+
+            <!-- Start XP Row -->
+            <div class="row vh-100 align-items-center">
+                <!-- Start XP Col -->
+                <div class="col-lg-12 ">
+
+                    <!-- Start XP Auth Box -->
+                    <div class="xp-auth-box">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="p-3">
+                                    @RenderBody()
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- End XP Auth Box -->
+
+                </div>
+                <!-- End XP Col -->
+            </div>
+            <!-- End XP Row -->
+        </div>
+        <!-- End Container -->
+    </div>
+
+    @Scripts.Render("~/bundles/general")
+    @Scripts.Render("~/bundles/main")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

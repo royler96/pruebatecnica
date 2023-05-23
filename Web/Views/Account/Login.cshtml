@@ -1,0 +1,38 @@
+﻿@using Web.Entities;
+@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/MasterLogin.cshtml";
+}
+
+
+<div class="container p-36 pt-64 pb-64 main-content mt-48 text-center bg-white" style="max-width:550px">
+
+    <h1 class="font-28 text-pri">Web</h1>
+
+    <div class="account-body">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form account-form", role = "form" }))
+        {
+            if (Model != null && !String.IsNullOrEmpty(Model.Error))
+            {
+                <div class="alert alert-warning" role="alert">@Model.Error</div>
+            }
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">                
+                @Html.TextBoxFor(m => m.username, new { @class = "form-control", @placeholder = "Usuario", @tabindex = "1" })
+                @Html.ValidationMessageFor(m => m.username, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">                
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña", @tabindex = "2" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-rounded btn-lg btn-block">
+                    Iniciar Sesión &nbsp;
+                </button>
+            </div>
+        }
+    </div>
+</div>
