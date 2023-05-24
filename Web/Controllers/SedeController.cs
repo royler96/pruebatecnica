@@ -33,10 +33,10 @@ namespace Web.Controllers
             if (sesionActual == null) return Json(responseError, JsonRequestBehavior.AllowGet);
 
 
-            var MaterialClient = new SedeClient();
-            MaterialClient._token = sesionActual.access_token;
+            var sedeCliente = new SedeClient();
+            sedeCliente._token = sesionActual.access_token;
 
-            var listado = MaterialClient.getAll(nombre_sede);
+            var listado = sedeCliente.getAll(nombre_sede);
 
             if (listado.codeHTTP == HttpStatusCode.OK)
             {
@@ -56,6 +56,33 @@ namespace Web.Controllers
                 {
                     Message = listado.data_badquest_otros.Message
                 }, listado.codeHTTP);                
+            }
+        }
+
+        [HttpPost]
+        public JsonResult postSede(PostSedeRequest datos)
+        {
+
+            ResponseTokenModel sesionActual = (ResponseTokenModel)Session["sesion"];
+            if (sesionActual == null) return Json(JsonRequestBehavior.AllowGet);
+
+            var sedeCliente = new SedeClient();
+            sedeCliente._token = sesionActual.access_token;
+
+            var resultadoApi = sedeCliente.postSede(datos);
+            if (resultadoApi.codeHTTP == HttpStatusCode.OK || resultadoApi.codeHTTP == HttpStatusCode.Created)
+            {
+                Request.RequestContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Created;
+                return Json(new
+                {
+                    resultadoApi.data.Message,
+                    resultadoApi.data.id_sede
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                Request.RequestContext.HttpContext.Response.StatusCode = (int)resultadoApi.codeHTTP;
+                return Json(new { Message = resultadoApi.data_badquest_otros.Message }, JsonRequestBehavior.AllowGet);
             }
         }
 

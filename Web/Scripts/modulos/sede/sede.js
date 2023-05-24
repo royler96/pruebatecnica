@@ -104,8 +104,8 @@ function Buscar(btnElement) {
             "columns": [
                 { "data": "cod_sede" },
                 { "data": "nombre_sede" },
-                { "data": "presupuesto" }, 
                 { "data": "numero_complejos" },
+                { "data": "presupuesto" },                 
                 { "data": "estado" },
                 { "data": "fecha_actualizacion" },
                 {

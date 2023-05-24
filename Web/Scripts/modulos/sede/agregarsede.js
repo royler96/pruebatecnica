@@ -62,14 +62,14 @@ function Registrar() {
         }
 
         var datos = {
-            estado: estado,
+            estado: estado == 1 ? true : false,
             nombre_sede: nombre_sede,
-            num_complejos: num_complejos,
+            numero_complejos: parseInt(num_complejos),
             presupuesto: presupuesto
         };
 
         $.ajax({
-            url: rutaPrincipal + `Sede/RegistrarSede`,
+            url: rutaPrincipal + `Sede/postSede`,
             method: 'POST',
             data: datos,
             success: function (data, textStatus, xhr) {
