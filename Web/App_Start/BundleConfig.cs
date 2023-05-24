@@ -139,6 +139,9 @@ namespace Web
             bundles.Add(new BrotliScriptBundle("~/bundles/agregarsede").Include(
             "~/Scripts/modulos/sede/agregarsede.js"
             ));
+            bundles.Add(new BrotliScriptBundle("~/bundles/editarsede").Include(
+            "~/Scripts/modulos/sede/editarsede.js"
+            ));
 
             BundleTable.EnableOptimizations = true;
 

@@ -4,6 +4,13 @@ using System.Net;
 
 namespace Web.Models.Sede
 {
+    public class DataItemSedeUnicoResponse
+    {
+        public HttpStatusCode codeHTTP { get; set; }
+        public string messageHTTP { get; set; }
+        public ItemSedeUnicoResponse_Ok data { get; set; }
+        public ItemSedeResponse_BadRequestYOtros data_badquest_otros { get; set; }
+    }
     public class DataItemSedeResponse
     {
         public HttpStatusCode codeHTTP { get; set; }
@@ -15,6 +22,11 @@ namespace Web.Models.Sede
     {        
         public string Message { get; set; }
         public List<ItemSede> data { get; set; }
+    }
+    public class ItemSedeUnicoResponse_Ok
+    {
+        public string Message { get; set; }
+        public ItemSede data { get; set; }
     }
     public class ItemSede
     {

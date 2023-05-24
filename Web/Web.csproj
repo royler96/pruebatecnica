@@ -387,6 +387,7 @@
     <Content Include="Views\Shared\MasterLogin.cshtml" />
     <Content Include="Views\Sede\Index.cshtml" />
     <Content Include="Views\Sede\Agregar.cshtml" />
+    <Content Include="Views\Sede\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

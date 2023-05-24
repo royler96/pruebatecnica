@@ -82,6 +82,72 @@ namespace Web.ClientWebApi
             }
         }
 
+        public DataItemSedeUnicoResponse get(int id)
+        {
+            DataItemSedeUnicoResponse responseMethod = new DataItemSedeUnicoResponse();
+            try
+            {
+                string urlService = $"api/sede/{id}";
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.Timeout = new TimeSpan(0, _Timeout, 0);
+                    if (!String.IsNullOrEmpty(_token))
+                    {
+                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                                            _token);
+                    }
+
+                    var responseService = httpClient.GetAsync(_webApiUrl + urlService).Result;
+                    get_GetDataService(responseService, responseMethod);
+                }
+            }
+            catch (Exception)
+            {
+                responseMethod.codeHTTP = HttpStatusCode.InternalServerError;
+                responseMethod.messageHTTP = "Error en el listado de sedes.";
+            }
+            return responseMethod;
+        }
+
+
+        private void get_GetDataService(HttpResponseMessage responseService, DataItemSedeUnicoResponse responseMethod)
+        {
+            if (responseService.StatusCode == HttpStatusCode.OK)
+            {
+                using (Stream stream = responseService.Content.ReadAsStreamAsync().Result)
+                {
+                    using (StreamReader re = new StreamReader(stream))
+                    {
+                        String json = re.ReadToEnd();
+                        responseMethod.data = (ItemSedeUnicoResponse_Ok)JsonConvert.DeserializeObject(json, typeof(ItemSedeUnicoResponse_Ok));
+                    }
+                }
+                responseMethod.codeHTTP = responseService.StatusCode;
+            }
+            else
+            {
+                responseMethod.codeHTTP = responseService.StatusCode;
+                if (responseService.StatusCode != HttpStatusCode.NoContent)
+                {
+                    using (Stream stream = responseService.Content.ReadAsStreamAsync().Result)
+                    {
+                        using (StreamReader re = new StreamReader(stream))
+                        {
+                            String json = re.ReadToEnd();
+                            var dataBadRequest = (ItemSedeResponse_BadRequestYOtros)JsonConvert.DeserializeObject(json, typeof(ItemSedeResponse_BadRequestYOtros));
+                            responseMethod.data_badquest_otros = dataBadRequest;
+                        }
+                    }
+                }
+                else
+                {
+                    responseMethod.codeHTTP = HttpStatusCode.NotFound;
+                    responseMethod.data_badquest_otros = new ItemSedeResponse_BadRequestYOtros() { Message = "No se encontraron sedes." };
+                }
+            }
+        }
+
         public PostSedeResponse postSede(PostSedeRequest dataRequest)
         {
             PostSedeResponse responseMethod = new PostSedeResponse();
