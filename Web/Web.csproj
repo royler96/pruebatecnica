@@ -349,8 +349,8 @@
     <Content Include="Scripts\datatables\vfs_fonts.js" />
     <Content Include="Scripts\modulos\Configuration.js" />
     <Content Include="Scripts\modulos\Configuration.min.js" />
-    <Content Include="Scripts\modulos\sede\AgregarMaterial.js" />
-    <Content Include="Scripts\modulos\sede\EditarMaterial.js" />
+    <Content Include="Scripts\modulos\sede\agregarsede.js" />
+    <Content Include="Scripts\modulos\sede\editarsede.js" />
     <Content Include="Scripts\modulos\sede\sede.js" />
     <Content Include="Scripts\modulos\MetodosGenerico.js" />
     <Content Include="Scripts\modulos\MetodosGenerico.min.js" />
@@ -383,6 +383,7 @@
     <Content Include="Views\Shared\MasterGeneral.cshtml" />
     <Content Include="Views\Shared\MasterLogin.cshtml" />
     <Content Include="Views\Sede\Index.cshtml" />
+    <Content Include="Views\Sede\Agregar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
