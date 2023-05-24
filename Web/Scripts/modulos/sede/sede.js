@@ -113,7 +113,8 @@ function Buscar(btnElement) {
                     //"data": "username",
                     "render": function (data, type, full, meta) {
 
-                        return '<button class="tabledit-edit-button btn btn-sm btn-info active"  onclick="editar(\'' + full.id_sede + '\')"><snap class="ti-pencil" style="float: none; margin: -16px;"></snap></button>  ';
+                        return '<button class="tabledit-edit-button btn btn-sm btn-info active"  onclick="editar(\'' + full.id_sede + '\')"><snap class="ti-pencil" style="float: none; margin: -16px;"></snap></button>  ' +
+                            '<button class="tabledit-edit-button btn btn-sm btn-danger active"  onclick="eliminar(\'' + full.id_sede + '\')"><snap class="ti-trash" style="float: none; margin: -16px;"></snap></button>  ';
 
                     }
                 },
@@ -148,4 +149,36 @@ function Buscar(btnElement) {
 function editar(id_sede) {
     location.href = `${rutaPrincipal}Sede/Editar/${id_sede}`;
 
+}
+
+function eliminar(id_sede) {
+    verMensaje('', "¿Está seguro de eliminar la sede?", 'warning',
+        'Sí', function () { eliminar_sede(id_sede) }, function () {  }, 'No');
+}
+function eliminar_sede(id_sede) {
+    showLoader();
+    $.ajax({
+        url: rutaPrincipal + `Sede/deleteSede/${id_sede}`,
+        method: 'POST',
+        
+        success: function (data, textStatus, xhr) {
+            hideLoader();
+            if (xhr.status == 200) {
+                $('#btnBuscar').click();
+                verMensaje('', "Se ha eliminado correctamente la sede", 'green',
+                    'Ok', function () { }, function () { });
+
+            } else {               
+                verMensaje('', "No se pudo eliminar la sede.", 'orange',
+                    'Ok', function () { }, function () { });
+            }            
+        },
+        error: function (xhr, textStatus) {
+            hideLoader();
+            
+            verMensaje('', "Error al eliminar la sede", 'red',
+                'Ok', function () { }, function () { });            
+        }
+
+    });
 }

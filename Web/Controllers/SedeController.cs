@@ -86,5 +86,31 @@ namespace Web.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult deleteSede(int id)
+        {
+
+            ResponseTokenModel sesionActual = (ResponseTokenModel)Session["sesion"];
+            if (sesionActual == null) return Json(JsonRequestBehavior.AllowGet);
+
+            var sedeCliente = new SedeClient();
+            sedeCliente._token = sesionActual.access_token;
+
+            var resultadoApi = sedeCliente.deleteSede(id);
+            if (resultadoApi.codeHTTP == HttpStatusCode.OK)
+            {
+                Request.RequestContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.OK;
+                return Json(new
+                {
+                    resultadoApi.data.Message                    
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                Request.RequestContext.HttpContext.Response.StatusCode = (int)resultadoApi.codeHTTP;
+                return Json(new { Message = resultadoApi.data_badquest_otros.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }
