@@ -271,5 +271,67 @@ namespace Web.ClientWebApi
         }
 
 
+        public PostSedeResponse putSede(int id, PostSedeRequest dataRequest)
+        {
+            PostSedeResponse responseMethod = new PostSedeResponse();
+            try
+            {
+                string urlService = $"api/sede/{id}";
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.Timeout = new TimeSpan(0, _Timeout, 0);
+                    if (!String.IsNullOrEmpty(_token))
+                    {
+                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+                                            _token);
+                    }
+                    var responseService = httpClient.PutAsJsonAsync(_webApiUrl + urlService, dataRequest).Result;
+                    putSede_GetDataService(responseService, responseMethod);
+                }
+            }
+            catch (Exception)
+            {
+                responseMethod.codeHTTP = HttpStatusCode.InternalServerError;
+                responseMethod.messageHTTP = "Error en la petición del servicio de crear sedes.";
+            }
+            return responseMethod;
+        }
+        private void putSede_GetDataService(HttpResponseMessage responseService, PostSedeResponse responseMethod)
+        {
+            if (responseService.StatusCode == HttpStatusCode.OK)
+            {
+                using (Stream stream = responseService.Content.ReadAsStreamAsync().Result)
+                {
+                    using (StreamReader re = new StreamReader(stream))
+                    {
+                        String json = re.ReadToEnd();
+                        responseMethod.data = (PostSedeResponse_Ok)JsonConvert.DeserializeObject(json, typeof(PostSedeResponse_Ok));
+                    }
+                }
+            }
+            else
+            {
+                if (responseService.StatusCode != HttpStatusCode.NoContent)
+                {
+                    using (Stream stream = responseService.Content.ReadAsStreamAsync().Result)
+                    {
+                        using (StreamReader re = new StreamReader(stream))
+                        {
+                            String json = re.ReadToEnd();
+                            var dataBadRequest = (PostSedeResponse_BadRequestYOtros)JsonConvert.DeserializeObject(json, typeof(PostSedeResponse_BadRequestYOtros));
+                            responseMethod.data_badquest_otros = dataBadRequest;
+                        }
+                    }
+                }
+                else
+                {
+                    responseMethod.codeHTTP = HttpStatusCode.NotFound;
+                    responseMethod.data_badquest_otros = new PostSedeResponse_BadRequestYOtros() { Message = "No se logro crear la sede" };
+                }
+            }
+            responseMethod.codeHTTP = responseService.StatusCode;
+        }
+
+
     }
 }

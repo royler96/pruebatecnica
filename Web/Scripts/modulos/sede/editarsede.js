@@ -69,14 +69,14 @@ function Registrar() {
         };
 
         $.ajax({
-            url: rutaPrincipal + `Sede/putSede${_id}`,
-            method: 'PUT',
+            url: rutaPrincipal + `Sede/putSede/${_id}`,
+            method: 'POST',
             data: datos,
             success: function (data, textStatus, xhr) {
                 hideLoader();
-                if (xhr.status == 201) {
+                if (xhr.status == 200) {
                     verMensaje('', "Se ha editado correctamente la sede", 'green',
-                        'Ok', function () { location.href = `${rutaPrincipal}Sede/Editar/${data.id_sede}` }, function () { location.href = `${rutaPrincipal}Sede/Index` });
+                        'Ok', function () { location.reload(); }, function () { location.href = `${rutaPrincipal}Sede/Index` }, 'Volver');
 
                 } else {
                     var mensajeSuccessError = "No se pudo editar la sede.";
@@ -128,13 +128,11 @@ function Cancelar() {
 function Detalle() {    
     try {
         showLoader();
-       console.log(111)
         $.ajax({
             url: rutaPrincipal + `Sede/Detalle/${_id}`,
             method: 'GET',            
             success: function (data, textStatus, xhr) {
                 hideLoader();
-                console.log('data.data.nombre_sede', data.data.data.nombre_sede)
                 $("#txtNombreSede").val(data.data.data.nombre_sede);
                 $("#txtNumComplejos").val(data.data.data.numero_complejos);
                 $("#txtPresupuesto").val(data.data.data.presupuesto);

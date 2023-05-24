@@ -105,12 +105,18 @@ function Buscar(btnElement) {
                 { "data": "cod_sede" },
                 { "data": "nombre_sede" },
                 { "data": "numero_complejos" },
-                { "data": "presupuesto" },                 
-                { "data": "estado" },
+                { "data": "presupuesto" },                                 
+                {
+                    "data": "estado",                    
+                    "render": function (data, type, full, meta) {
+
+                        return full.estado === true ? 'Activo' : 'Inactivo';
+
+                    }
+                },
                 { "data": "fecha_actualizacion" },
                 {
-                    "data": "id_sede",
-                    //"data": "username",
+                    "data": "id_sede",                    
                     "render": function (data, type, full, meta) {
 
                         return '<button class="tabledit-edit-button btn btn-sm btn-info active"  onclick="editar(\'' + full.id_sede + '\')"><snap class="ti-pencil" style="float: none; margin: -16px;"></snap></button>  ' +
