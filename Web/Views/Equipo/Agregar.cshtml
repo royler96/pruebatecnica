@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "AgregarSede";
+    Layout = "~/Views/Shared/MasterGeneral.cshtml";
+
+}
+
+@section estilo_propio_pagina {
+    @Styles.Render("~/Content/plugins/select2_libreria")
+    @Styles.Render("~/Content/datepicker_libreria")
+
+}
+
+<div class="col-lg-12">
+    <div class="card m-b-30">
+        <div class="card-body">            
+            
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="txtNombreEquipo">Nombre Equipo</label>
+                    <input type="text" class="form-control" id="txtNombreEquipo" autocomplete="off">
+                </div>                
+                <div class="form-group col-md-6">
+                    <label for="selEstado">Estado</label>
+                    <select id="selEstado" class="form-control">
+                        <option value="-1">Seleccione estado</option>
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col-md-10">
+                    <button type="button" class="btn btn-outline-success float-right" id="btnRegistrar">
+                        <i class="mdi mdi-content-save" aria-hidden="true"></i> Registrar
+                    </button>
+                </div>
+                <div class="form-group col-md-2">
+                    <button type="button" class="btn btn-danger" id="btnCancelar">
+                        <i class="fa fa-times-rectangle-o " aria-hidden="true"></i> Cancelar
+                    </button>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts_pagina_propia_1 {
+
+    @Scripts.Render("~/bundles/select2_libreria")
+    @Scripts.Render("~/bundles/datepicker_libreria")
+
+}
+
+@section scripts_pagina_propia_2 {
+    <script type="text/javascript">
+        let array_ubicacion_pagina = [
+            { nombre: "Equipo", link: rutaPrincipal + "Equipo/Index" },
+            { nombre: "Creación", link: rutaPrincipal + "Equipo/Index" }
+        ];
+        setTitlePage_Breadcrumb("Crear Equipo", array_ubicacion_pagina);
+    </script>    
+
+}

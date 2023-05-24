@@ -120,7 +120,7 @@ function Buscar(btnElement) {
                     "render": function (data, type, full, meta) {
 
                         return '<button class="tabledit-edit-button btn btn-sm btn-info active"  onclick="editar(\'' + full.id_sede + '\')"><snap class="ti-pencil" style="float: none; margin: -16px;"></snap></button>  ' +
-                            '<button class="tabledit-edit-button btn btn-sm btn-danger active"  onclick="eliminar(\'' + full.id_sede + '\')"><snap class="ti-trash" style="float: none; margin: -16px;"></snap></button>  ';
+                            '<button class="tabledit-trash-button btn btn-sm btn-danger"  onclick="eliminar(\'' + full.id_sede + '\')"><snap class="ti-trash" style="float: none; margin: -16px;"></snap></button>  ';
 
                     }
                 },

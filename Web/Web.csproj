@@ -156,6 +156,7 @@
     <Compile Include="ClientWebApi\PeticionesHttpClient\WebApiClient.cs" />
     <Compile Include="ClientWebApi\SedeClient.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EquipoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SedeController.cs" />
     <Compile Include="Entities\AccountModel.cs" />
@@ -388,6 +389,9 @@
     <Content Include="Views\Sede\Index.cshtml" />
     <Content Include="Views\Sede\Agregar.cshtml" />
     <Content Include="Views\Sede\Editar.cshtml" />
+    <Content Include="Views\Equipo\Index.cshtml" />
+    <Content Include="Views\Equipo\Agregar.cshtml" />
+    <Content Include="Views\Equipo\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
