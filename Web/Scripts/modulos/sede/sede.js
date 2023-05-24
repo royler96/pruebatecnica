@@ -45,23 +45,22 @@ function Buscar(btnElement) {
 
         tablaDatos = $("#TablaDatos").DataTable({
             language: _languageDataTables,
-            "processing": true,
-            "serverSide": true,
+            //"processing": true,
+            //"serverSide": true,
             ordering: false,
             responsive: true,
             searching: false,
-            paging: true,
+            //paging: true,
             fixedColumns: true,
             "ajax": {
-                "url": rutaPrincipal + `Sede/Listar?nombre_sede=${nombre_sede}`,
-                "type": "POST",
+                "url": rutaPrincipal + `Sede/getAll?nombre_sede=${nombre_sede}&draw=0`,
+                "type": "GET",
                 "datatype": "json",
                 "data": function (d) {
-                    d.num_pagina = (d.length > 0) ? (d.start / d.length) + 1 : 1;
-                    d.cant_registros = d.length;
+                    /*d.num_pagina = (d.length > 0) ? (d.start / d.length) + 1 : 1;                    
                     pageNumber = d.pagina;
                     d.columns = null;
-                    d.order = null;
+                    d.order = null;*/
                 },               
                 "dataSrc": function (data) {
 
