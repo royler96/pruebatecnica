@@ -133,6 +133,10 @@ namespace Web
             bundles.Add(new BrotliStyleBundle("~/Content/fuente/poppins",
                                          "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"));
 
+            bundles.Add(new BrotliScriptBundle("~/bundles/sede").Include(
+            "~/Scripts/modulos/sede/sede.js"
+            ));
+
             BundleTable.EnableOptimizations = true;
 
         }

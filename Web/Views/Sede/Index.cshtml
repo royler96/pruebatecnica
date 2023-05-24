@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Sede";
+    Layout = "~/Views/Shared/MasterGeneral.cshtml";
+}
+
+@section estilo_propio_pagina {
+    @Styles.Render("~/Content/datatable_libreria")
+    @Styles.Render("~/Content/responsive/datatable_libreria")
+    @Styles.Render("~/Content/datepicker_libreria")
+}
+
+<div class="col-lg-12">
+    <div class="card m-b-30">
+
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-lg-4 col-md-4 col-sm-5">
+                    <label for="txtNombreSede">Nombre sede</label>
+                    <input type="text" class="form-control" id="txtNombreSede" autocomplete="off">
+                </div>             
+                <div class="form-group col-lg-2 col-md-4 col-sm-5">
+                    <button type="button" class="btn btn-primary mt-md-0 mt-sm-0 mt-lg-4 mt-md-4"
+                            id="btnBuscar">
+                        <i class="fa fa-search" aria-hidden="true"></i> Buscar
+                    </button>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-xl-11 col-lg-12 col-md-12">
+                    <button type="button" class="btn btn-outline-primary float-lg-right float-md-right" id="btnAgregar">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Crear
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-12 mt-3">
+    <div class="card m-b-30">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="TablaDatos" class="display table table-striped table-bordered w-100">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Código</th>
+                            <th class="text-center">Nombre Sede</th>
+                            <th class="text-center">Num. Complejos</th>
+                            <th class="text-center">Presupuesto</th>
+                            <th class="text-center">Estado</th>
+                            <th class="text-center">Fecha actualización</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="conten_table" class="text-center"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts_pagina_propia_1 {
+
+    @Scripts.Render("~/bundles/datatable_libreria")
+    @Scripts.Render("~/bundles/responsive/datatable_libreria")
+    @Scripts.Render("~/bundles/datepicker_libreria")
+}
+
+@section scripts_pagina_propia_2 {
+    <script type="text/javascript">
+        let array_ubicacion_pagina = [
+
+        ];
+        setTitlePage_Breadcrumb("Sede", array_ubicacion_pagina);
+    </script>
+    @Scripts.Render("~/bundles/sede")
+
+}
+
+
