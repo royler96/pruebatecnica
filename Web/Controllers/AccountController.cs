@@ -52,8 +52,6 @@ namespace Web.Controllers
             var response = _AccountClient.IniciarSesion(model.username, model.Password);
             if (response != null && String.IsNullOrEmpty(response.error) && !String.IsNullOrEmpty(response.access_token) && !String.IsNullOrEmpty(response.token_type))
             {
-                _AccountClient._token = response.access_token;
-
                 DateTime expires = DateTime.Now.AddDays(30);
                 var authTicket = new FormsAuthenticationTicket(1, model.username, DateTime.Now, expires, false, "", "/");
                 HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
